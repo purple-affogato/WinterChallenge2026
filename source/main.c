@@ -10,12 +10,19 @@
 
 #include "cy_retarget_io.h"
 
+
+void print_ipv4_address(cy_wcm_ip_address_t *addr) {
+    printf("%d.%d.%d.%d\r\n",(int)addr->ip.v4>>0&0xFF,(int)addr->ip.v4>>8&0xFF,(int)addr->ip.v4>>16&0xFF,(int)addr->ip.v4>>24&0xFF);
+}
+
 void wifi_conn() {
     cy_rslt_t result;
     cy_wcm_config_t wcm_config = {.interface = CY_WCM_INTERFACE_TYPE_STA};
     cy_wcm_connect_params_t connect_params;
     cy_wcm_ip_address_t ip_addr;
     cy_wcm_mac_t mac_addr;
+    cy_wcm_ip_address_t netmask;
+    cy_wcm_ip_address_t gateway;
 
     result = cy_wcm_init(&wcm_config);
 
@@ -30,7 +37,10 @@ void wifi_conn() {
         result = cy_wcm_connect_ap(&connect_params, &ip_addr);
         if (result == CY_RSLT_SUCCESS) {
             printf("Successfully connected!\r\n");
-            printf("IP Address: %d.%d.%d.%d\r\n",(int)ip_addr.ip.v4>>0&0xFF,(int)ip_addr.ip.v4>>8&0xFF,(int)ip_addr.ip.v4>>16&0xFF,(int)ip_addr.ip.v4>>24&0xFF);
+
+            printf("IP Address: ");
+            print_ipv4_address(&ip_addr);
+
             cy_wcm_get_mac_addr(wcm_config.interface, &mac_addr);
             printf("MAC address: ");
             for(uint8_t j=0;j<CY_WCM_MAC_ADDR_LEN;j++) {
@@ -38,6 +48,14 @@ void wifi_conn() {
                 printf("%02X:",val);
             }
             printf("\r\n");
+
+            cy_wcm_get_ip_netmask(wcm_config.interface, &netmask);
+            printf("Netmask: ");
+            print_ipv4_address(&netmask);
+
+            cy_wcm_get_gateway_ip_address(wcm_config.interface, &gateway);
+            printf("Gateway Address: ");
+            print_ipv4_address(&gateway);
             break;
         }
     }

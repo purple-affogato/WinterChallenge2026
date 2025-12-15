@@ -11,6 +11,7 @@ bsps
 
 # Misc.
 LICENSE
+.ninja_lock
 
 # ModusToolbox Configurator generated code and lock file
 GeneratedSource/
