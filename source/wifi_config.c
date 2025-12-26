@@ -19,6 +19,7 @@ void wifi_conn() {
     cy_wcm_ip_address_t netmask;
     cy_wcm_ip_address_t gateway;
 
+    cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
     result = cy_wcm_init(&wcm_config);
 
     // set up connection parameters

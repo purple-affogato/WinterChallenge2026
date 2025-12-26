@@ -2,6 +2,15 @@
 #include "cyhal.h"
 #include "cy_retarget_io.h"
 
+const cyhal_timer_cfg_t timer_cfg = {
+    .is_continuous = false,
+    .direction = CYHAL_TIMER_DIR_UP,
+    .is_compare = false,
+    .period = 200,
+    .compare_value = 0,
+    .value = 0
+};
+
 void initialize_dht11(DHT11 *sensor) {
     CY_ASSERT(sensor != NULL);
     cy_rslt_t result;
@@ -19,14 +28,6 @@ enum DHT11_RESULT read_dht11(DHT11 *sensor) {
         sensor->data[i] = 0;
     }
     cyhal_timer_t timer; // initialize timer
-    const cyhal_timer_cfg_t timer_cfg = {
-        .is_continuous = false,
-        .direction = CYHAL_TIMER_DIR_UP,
-        .is_compare = false,
-        .period = 200,
-        .compare_value = 0,
-        .value = 0
-    };
     result = cyhal_timer_init(&timer, NC, NULL);
     CY_ASSERT(result == CY_RSLT_SUCCESS);
     cyhal_timer_configure(&timer, &timer_cfg);

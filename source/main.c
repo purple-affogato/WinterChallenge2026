@@ -52,8 +52,6 @@ int main(void)
 
     printf("\033[2J\033[H"); // clears output screen
 
-    cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
-
     xTaskCreate(wifi_conn, "wifi connection task", 1024, NULL, 1, NULL);
     xTaskCreate(test_dht11, "test dht11 task", 1024, NULL, 2, NULL);
     vTaskStartScheduler();
