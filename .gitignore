@@ -12,6 +12,7 @@ bsps
 # Misc.
 LICENSE
 .ninja_lock
+go-backend/*.exe
 
 # ModusToolbox Configurator generated code and lock file
 GeneratedSource/
