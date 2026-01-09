@@ -6,3 +6,6 @@ images
 .settings
 .vscode
 
+# Libraries
+$(SEARCH_aws-iot-device-sdk-embedded-C)/libraries/standard/coreMQTT
+libs/aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT

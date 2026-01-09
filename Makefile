@@ -85,7 +85,7 @@ VERBOSE=
 # ... then code in directories named COMPONENT_foo and COMPONENT_bar will be
 # added to the build
 #
-COMPONENTS=FREERTOS LWIP MBEDTLS
+COMPONENTS=FREERTOS LWIP MBEDTLS SECURE_SOCKETS
 
 # Like COMPONENTS, but disable optional code that was enabled by default.
 DISABLE_COMPONENTS=
@@ -102,10 +102,14 @@ INCLUDES=
 
 # Add additional defines to the build process (without a leading -D).
 DEFINES+=MBEDTLS_USER_CONFIG_FILE='"mbedtls_user_config.h"'
-
 DEFINES+=CYBSP_WIFI_CAPABLE
-
 DEFINES+=CY_RTOS_AWARE
+DEFINES+=HTTP_MAX_RESPONSE_HEADERS_SIZE_BYTES=2048
+DEFINES+=HTTP_USER_AGENT_VALUE="\"mtb-http-client\""
+DEFINES+=HTTP_DO_NOT_USE_CUSTOM_CONFIG
+DEFINES+=MQTT_DO_NOT_USE_CUSTOM_CONFIG
+DEFINES+=CY_HTTP_CLIENT_ENABLE_SMART_BUFFERING
+DEFINES+=CY_HTTP_RESPONSE_FIRST_CHUNK_SIZE=128
 
 # Select softfp or hardfp floating point. Default is softfp.
 VFP_SELECT=
