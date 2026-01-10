@@ -17,3 +17,5 @@ struct as7341 {
 typedef struct as7341 AS7341;
 
 void initialize_as7341(AS7341* sensor);
+
+#endif // AS7341_H

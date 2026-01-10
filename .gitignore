@@ -1,5 +1,6 @@
 # Secrets
 wifi_config.h
+http_config.h
 
 # ModusToolbox library repos or information about library dependencies
 libs/
