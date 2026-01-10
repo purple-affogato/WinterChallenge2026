@@ -70,8 +70,8 @@ func receiveTempRhOnce(w http.ResponseWriter, r *http.Request) {
 		},
 		time.Now(),
    	)
-   	points := []*influxdb3.Point{point};
-	err = client.WritePoints(context.Background(), points, influxdb3.WithPrecision(lineprotocol.Second));
+   	points := []*influxdb3.Point{point}
+	err = client.WritePoints(context.Background(), points, influxdb3.WithPrecision(lineprotocol.Second))
 	log.Printf("Temp: %f, RH: %f\n", temp, rh)
 	if err != nil {
 		log.Printf("failed to write to influxdb3\n")
