@@ -54,10 +54,13 @@ func receiveTempRhOnce(w http.ResponseWriter, r *http.Request) {
 		Token:    token,
 		Database: database,
 	})
+	if err != nil {
+		log.Fatalf("error creating client: %v\n", err)
+	}
 	defer func (client *influxdb3.Client)  {
 		err = client.Close()
 		if err != nil {
-			panic(err)
+			log.Fatalf("error closing influxdb3 client: %v\n", err)
 		}
 	}(client)
 	point := influxdb3.NewPoint("data",
@@ -74,7 +77,7 @@ func receiveTempRhOnce(w http.ResponseWriter, r *http.Request) {
 	err = client.WritePoints(context.Background(), points, influxdb3.WithPrecision(lineprotocol.Second))
 	log.Printf("Temp: %f, RH: %f\n", temp, rh)
 	if err != nil {
-		log.Printf("failed to write to influxdb3\n")
+		log.Printf("failed to write to influxdb3: %v\n", err)
 	}
 	w.WriteHeader(http.StatusAccepted)
 }
